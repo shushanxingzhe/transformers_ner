@@ -1,0 +1,5 @@
+datasets==1.11.0
+pytorch-crf==0.7.2
+torch==1.9.0
+torchvision==0.10.0
+transformers==4.6.1
