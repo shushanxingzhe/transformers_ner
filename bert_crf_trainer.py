@@ -55,8 +55,6 @@ train_dataset = train_dataset.remove_columns(['id', 'pos_tags', 'chunk_tags'])
 train_dataset = train_dataset.rename_column('ner_tags', 'label_ids')
 test_dataset = test_dataset.remove_columns(['id', 'pos_tags', 'chunk_tags'])
 test_dataset = test_dataset.rename_column('ner_tags', 'label_ids')
-train_dataset = train_dataset.select(range(100))
-test_dataset = test_dataset.select(range(100))
 
 train_dataset = train_dataset.map(tokenize, batched=True, batch_size=len(train_dataset))
 test_dataset = test_dataset.map(tokenize, batched=True, batch_size=len(test_dataset))
@@ -76,7 +74,7 @@ def compute_metrics(pred):
 
 training_args = TrainingArguments(
     output_dir='./results',
-    num_train_epochs=1,
+    num_train_epochs=3,
     per_device_train_batch_size=32,
     per_device_eval_batch_size=32,
     warmup_steps=200,

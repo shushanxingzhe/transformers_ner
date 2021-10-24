@@ -7,10 +7,6 @@ id2label = ["O", "B-PER", "I-PER", "B-ORG", "I-ORG", "B-LOC", "I-LOC", "B-MISC",
 
 
 def decode(label_ids, input_ids, offsets_mapping, id2label):
-    print(label_ids)
-    print(input_ids)
-    print(offsets_mapping)
-    print(id2label)
     result = []
     for k in range(len(label_ids)):
         words = []
