@@ -138,22 +138,17 @@ class BertLstmCRF(BertPreTrainedModel):
 
         loss = None
         if labels is not None:
-            log_likelihood, logits = self.crf(logits, labels), self.crf.decode(logits)
+            log_likelihood, tags = self.crf(logits, labels), self.crf.decode(logits)
             loss = 0 - log_likelihood
         else:
-            logits = self.crf.decode(logits)
-        logits = torch.Tensor(logits)
+            tags = self.crf.decode(logits)
+        tags = torch.Tensor(tags)
 
         if not return_dict:
-            output = (logits,) + outputs[2:]
+            output = (tags,) + outputs[2:]
             return ((loss,) + output) if loss is not None else output
 
-        return TokenClassifierOutput(
-            loss=loss,
-            logits=logits,
-            hidden_states=outputs.hidden_states,
-            attentions=outputs.attentions,
-        )
+        return loss, tags
 
 class BertCRF(BertPreTrainedModel):
 
@@ -207,19 +202,14 @@ class BertCRF(BertPreTrainedModel):
 
         loss = None
         if labels is not None:
-            log_likelihood, logits = self.crf(logits, labels), self.crf.decode(logits)
+            log_likelihood, tags = self.crf(logits, labels), self.crf.decode(logits)
             loss = 0 - log_likelihood
         else:
-            logits = self.crf.decode(logits)
-        logits = torch.Tensor(logits)
+            tags = self.crf.decode(logits)
+        tags = torch.Tensor(tags)
 
         if not return_dict:
-            output = (logits,) + outputs[2:]
+            output = (tags,) + outputs[2:]
             return ((loss,) + output) if loss is not None else output
 
-        return TokenClassifierOutput(
-            loss=loss,
-            logits=logits,
-            hidden_states=outputs.hidden_states,
-            attentions=outputs.attentions,
-        )
+        return loss, tags

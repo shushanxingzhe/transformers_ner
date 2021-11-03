@@ -38,4 +38,4 @@ inputs = tokenizer(corpus, max_length=512, padding=True, truncation=True, return
 offset_mapping = inputs.pop("offset_mapping").cpu().numpy().tolist()
 
 outputs = model(**inputs)
-print(decode(outputs.logits.numpy().tolist(), inputs['input_ids'].numpy().tolist(), offset_mapping, id2label))
+print(decode(outputs[1].numpy().tolist(), inputs['input_ids'].numpy().tolist(), offset_mapping, id2label))
